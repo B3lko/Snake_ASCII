@@ -167,7 +167,31 @@ public:
 	}
 };
 
-
+class Food{
+private:
+	struct par{
+		int x;
+		int y;
+	};
+	char dfood = 178;
+	par par1;
+public:
+	Food(){
+		genRand();
+	}
+	void genRand(){
+		srand (time(NULL));
+		par1.x = rand()%100 + 1;
+		srand (time(NULL));
+		par1.y = rand()%30 +1;
+	}
+	void Draw(){
+		gotoxy(par1.x,par1.y);
+		cout<<dfood;
+		gotoxy(par1.x+1,par1.y);
+		cout<<dfood;
+	}
+};
 
 class Snake{
 private:
@@ -210,26 +234,6 @@ public:
 			cout<<tail;
 		}
 		
-	}
-	int getX(){
-		return snake[snake.size()-1].x;
-	}
-	int getY(){
-		return snake[snake.size()-1].y;
-	}
-	int getSX(int i){
-		return snake[i].x;
-	}
-	int getSY(int i){
-		return snake[i].y;
-	}
-	int getSize(){
-		return snake.size();
-	}
-	void resize(int x, int y){
-		snake.resize(snake.size()+1);
-		snake[snake.size()-1].x = x;
-		snake[snake.size()-1].y = y;
 	}
 	void move(){
 		
@@ -300,49 +304,7 @@ public:
 		}
 	}
 };
-class Food{
-private:
-	struct par{
-		int x;
-		int y;
-	};
-	char dfood = 178;
-	par par1;
-	bool okay;
-public:
-	Food(){
-		par1.x = 27;
-		par1.y = 15;
-	}
-	void genRand(Snake snake){
-		okay = false;
-		while(!okay){
-			srand (time(NULL));
-			par1.x = 2 + rand()% (96-2);
-			srand (time(NULL));
-			par1.y = 1 + rand()% (30+1);
-			for(int i=0;i<snake.getSize();i++){
-				if(par1.x!=snake.getSX(i) && par1.y!=snake.getSY(i)){
-					if(par1.x%2!=0){
-						okay = true;
-					}
-				}
-			}
-		}
-	}
-		int getX(){
-			return par1.x;
-		}
-			int getY(){
-				return par1.y;
-			}
-				void Draw(){
-					gotoxy(par1.x,par1.y);
-					cout<<dfood;
-					gotoxy(par1.x+1,par1.y);
-					cout<<dfood;
-				}
-};
+
 class Game{
 private:
 	Snake snake;
@@ -357,24 +319,13 @@ public:
 	}
 	void Update(){
 		while(!end){
-			
 			ttime = clock()/1000;
 			if(aux_time!=ttime){
 				aux_time = ttime;
-				cheek();
 				snake.move();
 				snake.Draw();
 				food.Draw();
-				
 			}
-		}
-	}
-	void cheek(){
-		int x = food.getX(),y = food.getY();
-		int sx = snake.getX(), sy = snake.getY();
-		if(sx == x && sy == y){
-			snake.resize(x,y);
-			food.genRand(snake);
 		}
 	}
 	void Run(){
