@@ -8,12 +8,19 @@ private:
 	Food food;
 	Mapa mapa;
 	bool end = false;
-	clock_t  ttime = clock()/1000;
+	clock_t  ttime = clock()/500;
 	int aux_time;
+	vector<int>SnakeX;
+	vector<int>SnakeY;
 public:
+	Game(){
+		SnakeX = snake.getSnakeX();
+		SnakeY = snake.getSnakeY();
+		food.genRand(SnakeX,SnakeY);
+	}
 	void Update(){
 		while(!end){
-			ttime = clock()/1000;
+			ttime = clock()/500;
 			if(aux_time!=ttime){
 				aux_time = ttime;
 				snake.move();

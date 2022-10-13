@@ -7,6 +7,7 @@ using namespace std;
 
 class Snake{
 private:
+	HANDLE hConsole = GetStdHandle( STD_OUTPUT_HANDLE );
 	struct par{
 		int x;
 		int y;
@@ -37,6 +38,7 @@ public:
 	}
 	
 	void draw(){
+		SetConsoleTextAttribute(hConsole, 2);
 		gotoxy(ult.x,ult.y);
 		cout<<space;
 		gotoxy(ult.x+1,ult.y);
@@ -117,6 +119,24 @@ public:
 				snake[i] = snake[i+1];
 			}
 		}
+	}
+	
+	vector<int> getSnakeX(){
+		vector<int> SnakeX;
+		for(int i=0;i<snake.size();i++){
+			SnakeX.resize(SnakeX.size()+1);
+			SnakeX[i] = snake[i].x;
+		}
+		return SnakeX;
+	}
+	
+	vector<int> getSnakeY(){
+		vector<int> SnakeY;
+		for(int i=0;i<snake.size();i++){
+			SnakeY.resize(SnakeY.size()+1);
+			SnakeY[i] = snake[i].y;
+		}
+		return SnakeY;
 	}
 };
 #endif
