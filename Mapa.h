@@ -7,6 +7,7 @@ private:
 	char tt = 219;
 public:
 	Mapa(){
+		
 		for(int i=0;i<120;i++){
 			gotoxy(i,1);
 			cout<<tt;
@@ -37,7 +38,7 @@ public:
 			cout<<tt;
 		}
 		gotoxy(102,3);
-		cout<<"Score: ";
+		cout<<"Score: 0";
 		
 		gotoxy(104,7);
 		cout<<"Controls: ";
@@ -160,6 +161,11 @@ public:
 		cout<<tt<<tt;
 		SetConsoleTextAttribute(hConsole, 2);
 		cout<<tt<<tt;
+	}
+	void update(int score){
+		SetConsoleTextAttribute(hConsole, 1);
+		gotoxy(109,3);
+		cout<<score<<endl;
 	}
 };
 

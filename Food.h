@@ -35,10 +35,8 @@ public:
 					okay2 = false;
 				}
 			}
-			
 		}
-		
-		
+		this->Draw();
 	}
 		
 	void Draw(){
@@ -47,6 +45,14 @@ public:
 		cout<<dfood;
 		gotoxy(par1.x+1,par1.y);
 		cout<<dfood;
+	}
+	
+	int getX(){
+		return par1.x;
+	}
+	
+	int getY(){
+		return par1.y;
 	}
 };
 

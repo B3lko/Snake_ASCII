@@ -51,7 +51,7 @@ public:
 		}
 	}
 	
-	void move(){
+	void selectDir(){
 		if(kbhit()) { 
 			int tecla=getch();
 			switch(tecla){
@@ -61,6 +61,9 @@ public:
 			case (75):if(dir!='r')dir='l';break;
 			};
 		}
+	}
+	
+	void move(){
 		switch(dir){
 		case 'r':moveR();break;
 		case 'l':moveL();break;
@@ -137,6 +140,33 @@ public:
 			SnakeY[i] = snake[i].y;
 		}
 		return SnakeY;
+	}
+	
+	void eat(){
+		snake.resize(snake.size()+1);
+		switch(dir){
+		case 'r':
+			snake[snake.size()-1].x = snake[snake.size()-2].x + 2;
+			snake[snake.size()-1].y = snake[snake.size()-2].y;
+			break;
+		case 'l':
+			snake[snake.size()-1].x = snake[snake.size()-2].x - 2;
+			snake[snake.size()-1].y = snake[snake.size()-2].y;
+			break;
+		case 'd':
+			snake[snake.size()-1].x = snake[snake.size()-2].x;
+			snake[snake.size()-1].y = snake[snake.size()-2].y + 1;
+			;break;
+		case 'u':
+			snake[snake.size()-1].x = snake[snake.size()-2].x;
+			snake[snake.size()-1].y = snake[snake.size()-2].y - 1;
+			break;
+		}
+		
+	}
+	
+	char getDir(){
+		return dir;
 	}
 };
 #endif
