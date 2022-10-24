@@ -5,9 +5,6 @@
 using namespace std;
 
 class Creeping{
-private:
-	
-	
 protected:
 	HANDLE hConsole = GetStdHandle( STD_OUTPUT_HANDLE );
 	struct par{
@@ -23,6 +20,7 @@ protected:
 	char tail = 177;
 	char space = 32;
 	par par1, par2, par3;
+	bool end = false;
 public:
 	virtual void Draw() = 0;
 	void selectDir() {
@@ -33,6 +31,7 @@ public:
 			case (80):if(dir!='u')dir='d';break;
 			case (77):if(dir!='l')dir='r';break;
 			case (75):if(dir!='r')dir='l';break;
+			case 'l':end = true;
 			};
 		}
 	}
@@ -144,15 +143,16 @@ public:
 	}
 	
 	bool Detect(){
-		for(int i=0;i<crp.size();i++){
+		for(int i=0;i<crp.size()-1;i++){
 			if(crp[crp.size()-1].x == crp[i].x && crp[crp.size()-1].y == crp[i].y){
 				return true;
 			}
-			else{
-				return false;
-			}
 		}
 		return false;
+	}
+		
+	bool getEnd(){
+		return end;
 	}
 };
 #endif

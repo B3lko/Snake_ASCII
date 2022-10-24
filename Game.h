@@ -7,7 +7,7 @@
 
 class Game{
 private:
-	int timer = 200;
+	int timer = 100;
 	
 	Food food;
 	Mapa mapa;
@@ -33,10 +33,15 @@ public:
 	}
 	void Update(){
 		while(!end){
+
 			crp->selectDir();
 			ttime = clock()/timer;
+			
 			if(aux_time!=ttime){
 				aux_time = ttime;
+				
+				this->end=crp->getEnd();
+				
 				
 				if(predictEat()){
 					
@@ -74,6 +79,7 @@ public:
 				
 			}
 		}
+		gotoxy(10,15);
 	}
 	
 	void Run(){

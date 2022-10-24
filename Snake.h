@@ -20,10 +20,6 @@ public:
 		ult = crp[0];
 	}
 	
-	Snake(vector<par> snake, char dir){
-		this->dir = dir;
-	}
-	
 	Snake(){
 		par1.x = 15;
 		par1.y = 15;
