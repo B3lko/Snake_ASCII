@@ -142,5 +142,17 @@ public:
 	char getDir(){
 		return dir;
 	}
+	
+	bool Detect(){
+		for(int i=0;i<crp.size();i++){
+			if(crp[crp.size()-1].x == crp[i].x && crp[crp.size()-1].y == crp[i].y){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
+	}
 };
 #endif

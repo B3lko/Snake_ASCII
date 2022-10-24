@@ -63,6 +63,15 @@ public:
 				}
 				comio = false;
 				crp->Draw();
+				
+				if(DetectCollision()){
+					end = true;
+				}
+				
+				if(crp->Detect()){
+					end = true;
+				}
+				
 			}
 		}
 	}
@@ -101,5 +110,22 @@ public:
 			break;
 		}
 		return false;
+	}
+	
+	bool DetectCollision(){
+		SnakeX = crp->getSnakeX();
+		SnakeY = crp->getSnakeY();
+		int SNKX,SNKY;
+		SNKX = SnakeX[SnakeX.size()-1];
+		SNKY = SnakeY[SnakeY.size()-1];
+		if(SNKX<=2 || SNKX>=96){
+			return true;
+		}
+		if(SNKY<=1 || SNKY>=30){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 };
