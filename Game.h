@@ -1,13 +1,19 @@
 #include "Snake.h"
 #include "Food.h"
 #include "Mapa.h"
+#include "Creeping.h"
+#include "Worm.h"
+#include "Slug.h"
 
 class Game{
 private:
 	int timer = 200;
-	Snake snake;
+	
 	Food food;
 	Mapa mapa;
+	
+	Creeping *crp = new Snake;
+	
 	bool end = false;
 	clock_t  ttime = clock()/timer;
 	int aux_time;
@@ -15,32 +21,48 @@ private:
 	vector<int>SnakeY;
 	int score = 0;
 	bool comio = false;
+	char dir;
+	
+	int selector = 0;
+	
 public:
 	Game(){
-		SnakeX = snake.getSnakeX();
-		SnakeY = snake.getSnakeY();
+		SnakeX = crp->getSnakeX();
+		SnakeY = crp->getSnakeY();
 		food.genRand(SnakeX,SnakeY);
 	}
 	void Update(){
 		while(!end){
-			snake.selectDir();
+			crp->selectDir();
 			ttime = clock()/timer;
 			if(aux_time!=ttime){
 				aux_time = ttime;
 				
 				if(predictEat()){
+					
 					food.genRand(SnakeX,SnakeY);
-					snake.eat();
+					crp->eat();
 					score++;
 					mapa.update(score);
 					comio = true;
+					
+					dir = crp->getDir();
+					SnakeX = crp->getSnakeX();
+					SnakeY = crp->getSnakeY();
+					
+					delete crp;
+					switch(selector){
+						case 0: crp = new Worm(SnakeX,SnakeY,dir);selector=1;break;
+						case 1: crp = new Slug(SnakeX,SnakeY,dir);selector=2;break;
+						case 2: crp = new Snake(SnakeX,SnakeY,dir);selector=0;break;
+					}
 				}
 				
 				if(!comio){
-					snake.move();
+					crp->move();
 				}
 				comio = false;
-				snake.draw();
+				crp->Draw();
 			}
 		}
 	}
@@ -50,9 +72,9 @@ public:
 	}
 	
 	bool predictEat(){
-		char dir = snake.getDir();
-		SnakeX = snake.getSnakeX();
-		SnakeY = snake.getSnakeY();
+		dir = crp->getDir();
+		SnakeX = crp->getSnakeX();
+		SnakeY = crp->getSnakeY();
 		int fx = food.getX();
 		int fy = food.getY();
 		

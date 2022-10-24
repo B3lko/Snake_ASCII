@@ -1,15 +1,15 @@
-#ifndef SNAKE_H
-#define SNAKE_H
+#ifndef WORM_H
+#define WORM_H
 #include <iostream>
-#include <vector>
 #include <conio2.h>
 #include "Creeping.h"
+#include <vector>
 using namespace std;
 
-class Snake : public Creeping{
+class Worm : public Creeping{
 public:
 	
-	Snake(vector<int> CRPX, vector<int> CRPY, char dir){
+	Worm(vector<int> CRPX, vector<int> CRPY, char dir){
 		this->dir = dir;
 		crp.resize(CRPX.size());
 		
@@ -19,28 +19,9 @@ public:
 		}
 		ult = crp[0];
 	}
-	
-	Snake(vector<par> snake, char dir){
-		this->dir = dir;
-	}
-	
-	Snake(){
-		par1.x = 15;
-		par1.y = 15;
-		par2.x = 17;
-		par2.y = 15;
-		par3.x = 19;
-		par3.y = 15;
-		for(int i=0;i<3;i++){
-			crp.resize(crp.size()+1);
-		}
-		crp[0] = par1;
-		crp[1] = par2;
-		crp[2] = par3;
-	}
-	
+		
 	void Draw() override{
-		SetConsoleTextAttribute(hConsole, 2);
+		SetConsoleTextAttribute(hConsole, 6);
 		gotoxy(ult.x,ult.y);
 		cout<<space;
 		gotoxy(ult.x+1,ult.y);
