@@ -21,6 +21,8 @@ private:
 public:
 	Mapa();
 	void update(int score);
+	void lost();
+	void clean();
 };
 
 

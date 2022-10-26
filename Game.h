@@ -11,6 +11,7 @@ private:
 	
 	Food food;
 	Mapa mapa;
+	bool end2 = false;
 	
 	Creeping *crp = new Snake;
 	
@@ -24,6 +25,10 @@ private:
 	char dir;
 	
 	int selector = 0;
+	char lastdir= 'r';
+	bool answer;
+	
+	bool brestart = true;
 	
 public:
 	Game();
@@ -31,4 +36,5 @@ public:
 	void Run();
 	bool predictEat();
 	bool DetectCollision();
+	void restart();
 };

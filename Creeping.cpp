@@ -13,7 +13,8 @@ void Creeping::selectDir() {
 	}
 }
 
-void Creeping::move(){
+void Creeping::move(char dir){
+	this->dir = dir;
 	switch(dir){
 	case 'r':moveR();break;
 	case 'l':moveL();break;
@@ -129,4 +130,8 @@ bool Creeping::Detect(){
 	
 bool Creeping::getEnd(){
 	return end;
+}
+
+void Creeping::setDir(char dir){
+	this->dir = dir;
 }

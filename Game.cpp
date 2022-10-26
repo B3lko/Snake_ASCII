@@ -12,7 +12,13 @@ void Game::Update(){
 		ttime = clock()/timer;
 		if(aux_time!=ttime){
 			aux_time = ttime;
-			this->end=crp->getEnd();
+			
+			if(crp->getEnd()){
+				this->end=true;
+				end2 = true;
+				this->brestart = false;
+			}
+			
 			if(predictEat()){
 				food.genRand(SnakeX,SnakeY);
 				crp->eat();
@@ -33,7 +39,11 @@ void Game::Update(){
 			}
 			
 			if(!comio){
-				crp->move();
+				if(lastdir=='r' && dir=='l' || lastdir=='l' && dir=='r' || lastdir=='d' && dir=='u' || lastdir=='u' && dir=='d'){
+					dir = lastdir;
+				}
+					crp->move(dir);
+					lastdir = crp->getDir();
 			}
 			comio = false;
 			crp->Draw();
@@ -48,11 +58,27 @@ void Game::Update(){
 			
 		}
 	}
-	gotoxy(10,15);
+	
+	if(end2 != true){
+		mapa.lost();
+		answer = false;
+		while(!answer){
+			if(kbhit()) { 
+				int tecla=getch();
+				switch(tecla){
+				case 'r':this->restart();answer = true;end=false;break;
+				case 'e':answer = true;brestart = false;break;
+				}
+			}
+		}
+	}
+	
 }
 
 void Game::Run(){
-	Update();
+	while(brestart){
+		Update();
+	}
 }
 	
 bool Game::predictEat(){
@@ -101,4 +127,18 @@ bool Game::DetectCollision(){
 	else{
 		return false;
 	}
+}
+
+void Game::restart(){
+	delete crp;
+	crp = new Snake;
+	score = 0;
+	mapa.update(score);
+	mapa.clean();
+	SnakeX = crp->getSnakeX();
+	SnakeY = crp->getSnakeY();
+	food.genRand(SnakeX,SnakeY);
+	crp->setDir('r');
+	dir = 'r';
+	lastdir = 'r';
 }

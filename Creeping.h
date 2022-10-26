@@ -26,7 +26,7 @@ protected:
 public:
 	virtual void Draw() = 0;
 	void selectDir();
-	void move();
+	void move(char dir);
 	void moveD();
 	void moveU();
 	void moveL();
@@ -37,5 +37,6 @@ public:
 	char getDir();
 	bool Detect();
 	bool getEnd();
+	void setDir(char dir);
 };
 #endif
